@@ -65,7 +65,7 @@ export default function Catalog({ searchQuery }) {
   }, [activeCategory, maxPrice, inStockOnly, searchQuery, sortBy]);
 
   return (
-    <main className="shop-section" id="shop-section">
+    <section className="shop-section" id="shop-section">
       <div className="container">
 
         {/* Section Header */}
@@ -180,6 +180,6 @@ export default function Catalog({ searchQuery }) {
         )}
 
       </div>
-    </main>
+    </section>
   );
 }

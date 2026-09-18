@@ -94,6 +94,7 @@ export function StoreProvider({ children }) {
   const [accountTab, setAccountTab] = useState('profile');
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isTrackerOpen, setIsTrackerOpen] = useState(false);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [activeTrackingOrder, setActiveTrackingOrder] = useState(null);
   const [quickViewProduct, setQuickViewProduct] = useState(null);
 
@@ -121,6 +122,7 @@ export function StoreProvider({ children }) {
         setIsAccountOpen(false);
         setIsCheckoutOpen(false);
         setIsTrackerOpen(false);
+        setIsAuthOpen(false);
         setQuickViewProduct(null);
       }
     };
@@ -407,6 +409,9 @@ export function StoreProvider({ children }) {
   };
   const closeTracker = () => setIsTrackerOpen(false);
 
+  const openAuth = () => setIsAuthOpen(true);
+  const closeAuth = () => setIsAuthOpen(false);
+
   const openQuickView = (product) => setQuickViewProduct(product);
   const closeQuickView = () => setQuickViewProduct(null);
 
@@ -427,6 +432,7 @@ export function StoreProvider({ children }) {
     accountTab,
     isCheckoutOpen,
     isTrackerOpen,
+    isAuthOpen,
     activeTrackingOrder,
     quickViewProduct,
 
@@ -444,8 +450,16 @@ export function StoreProvider({ children }) {
     setCurrency,
     setTheme: setThemeState,
     toggleTheme,
-    login,
-    register,
+    login: (...args) => {
+      const u = login(...args);
+      setIsAuthOpen(false);
+      return u;
+    },
+    register: (...args) => {
+      const u = register(...args);
+      setIsAuthOpen(false);
+      return u;
+    },
     logout,
     updateUserSettings,
     addOrder,
@@ -463,6 +477,8 @@ export function StoreProvider({ children }) {
     closeCheckout,
     openTracker,
     closeTracker,
+    openAuth,
+    closeAuth,
     openQuickView,
     closeQuickView
   };
